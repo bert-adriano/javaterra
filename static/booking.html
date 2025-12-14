@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javaterra Tour</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/booking.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="logo" class="logo-img">
+            <span>Javaterra</span>
+        </div>
+        <nav>
+            <a href="/static/index.html">home</a>
+            <a href="/static/booking.html">booking</a>
+            <a href="/static/history.html">history</a>
+        </nav>
+    </header>
+    <section class="title">
+        <div class="title-text">
+            <h1>Booking Ticket bus</h1>
+        </div>
+    </section>
+    <div class="booking-container">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-item">Memilih Destinasi</div>
+            <div class="sidebar-item">Mengisi Biodata</div>
+            <div class="sidebar-item">Konfirmasi Pesanan</div>
+            <div class="sidebar-item">Pembayaran Ticket</div>
+            <div class="sidebar-item">Status Pemesanan</div>
+        </div>
+
+        <div id="stepsContainer">
+            <!-- Form Section -->
+            <div class="step step-1">
+                <div class="form-section">
+                    <div class="form-grid">
+                        <!-- Keberangkatan -->
+                        <div class="form-group">
+                            <label>Keberangkatan</label>
+                            <select id="departure" required>
+                                <option value="" selected >Pilih Terminal Keberangkatan</option>
+                                <option value ="Jakarta" data-departure="20000">Terminal Gambir - Jakarta</option>
+                                <option value="Depok" data-departure="0">Terminal Depok - Depok</option>
+                                <option value="Bogor" data-departure="0">Terminal Baranangsiang - Bogor</option>
+                                <option value="Bekasi" data-departure="0">Terminal Kayu Ringin - Bekasi</option>
+                                <option value="Tangerang" data-departure="20000">Terminal Poris - Tangerang</option>
+                            </select>
+                            <small class="small-text" id="departurePriceInfo"></small>
+
+                        </div>
+
+                        <!-- Destinasi -->
+                        <div class="form-group">
+                            <label>Destinasi</label>
+                            <select id="destination" required>
+                                <option selected value="">Pilih Terminal Destinasi</option>
+                                <option value="Bandung" data-price="110000">Terminal Cihampelas - Bandung</option>
+                                <option value="Cianjur" data-price="90000">Terminal Cipanas - Cianjur</option>
+                                <option value="Cirebon" data-price="100000">Terminal Plered - Cirebon</option>
+                                <option value="Garut" data-price="125000">Terminal Guntur - Garut</option>
+                                <option value="Tasik" data-price="115000">Terminal Indihiang - Tasik</option>
+                                <option value="Sukabumi" data-price="85000">Terminal Parung Kuda - Sukabumi</option>
+                                <option value="Kuningan" data-price="150000">Terminal Kuningan - Kuningan</option>
+                                <option value="Purwokerto" data-price="150000">Terminal Simpang - Purwokerta</option>
+                            </select>
+                            <small class="small-text" id="destinationPriceInfo"></small>
+
+                        </div>
+
+                        <!-- Hari dan Tanggal -->
+                        <div class="form-group">
+                            <label>Hari dan Tanggal</label>
+                            <input class="date" type="date" id="bookingDate" required>
+                        </div>
+
+                        <!-- Jam Keberangkatan -->
+                        <div class="form-group">
+                            <label>Jam Keberangkatan</label>
+                                <select id="departureTime" required>
+                                    <option selected value="">Pilih jam keberangkatan</option>
+                                    <option value="Pagi">Pagi (07:00)</option>
+                                    <option value="Siang">Siang (12:00)</option>
+                                    <option value="Sore">Sore (15:00)</option>
+                                    <option value="Malam">Malam (19:00)</option>
+                                </select>
+                        </div>
+                        <!-- Tipe Bus -->
+                        <div class="form-group">
+                            <label>Tipe Bus</label>
+                            <select id="busType" required>
+                                <option selected value="">Pilih Tipe Bus</option>
+                                <option value="regular" data-bus="0">Regular Bus</option>
+                                <option value="sleeper" data-bus="80000">Sleeper Bus (1x makan, 1x snack)</option>
+                                <option value="vip" data-bus="120000">VIP (2x makan, 2x snack)</option>
+                            </select>
+                                <small class="small-text" id="busPriceInfo"></small>
+                        </div>
+
+                        <!-- Empty space for grid alignment -->
+                        <div></div>
+
+                        <!-- Jumlah Ticket -->
+                        <div class="form-group">
+                            <label>Jumlah Ticket</label>
+                            <div class="quantity-control">
+                                <input class="number" type="number" value="0" id="ticketQty" min="1 readonly">
+                                <button class="quantity-btn" onclick="increaseQty()">+</button>
+                                <button class="quantity-btn" onclick="decreaseQty()">-</button>
+                            </div>
+                        </div>
+
+                        <!-- Total Pembayaran -->
+                        <div class="form-group total-payment">
+                            <label>Total Pembayaran</label>
+                            <div class="total-amount" id="totalPrice">Rp0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-2">
+                <div class="form-section">
+                    <div class="form-grid">
+                        <!-- Nama Lengkap -->
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="username" name="username" placeholder="Masukan nama pemesan">
+                        </div>
+
+                        <!-- Tanggal Lahir -->
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" id="kelahiran" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" id="email" placeholder="tes@gmail.com">
+                        </div>
+
+                        <!-- Alamat -->
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" id="alamat" placeholder="Masukkan Alamat">
+                        </div>
+
+                        <!-- Nomor Telepon -->
+                        <div class="form-group">
+                            <label>Nomor Telepon</label>
+                            <input id="phone" inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="08xxx"/>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-3">
+                <div class="form-section">
+                    <div class="form-grid">
+                        <!-- Keberangkatan -->
+                        <div class="form-group">
+                            <label>Keberangkatan</label>
+                            <select id="departure" required>
+                                <option value="" selected >Pilih Terminal Keberangkatan</option>
+                                <option value ="Jakarta" data-departure="20000">Terminal Gambir - Jakarta</option>
+                                <option value="Depok" data-departure="0">Terminal Depok - Depok</option>
+                                <option value="Bogor" data-departure="0">Terminal Baranangsiang - Bogor</option>
+                                <option value="Bekasi" data-departure="0">Terminal Kayu Ringin - Bekasi</option>
+                                <option value="Tangerang" data-departure="20000">Terminal Poris - Tangerang</option>
+                            </select>
+                            <small class="small-text" id="departurePriceInfo"></small>
+
+                        </div>
+
+                        <!-- Destinasi -->
+                        <div class="form-group">
+                            <label>Destinasi</label>
+                            <select id="destination" required>
+                                <option selected value="">Pilih Terminal Destinasi</option>
+                                <option value="Bandung" data-price="110000">Terminal Cihampelas - Bandung</option>
+                                <option value="Cianjur" data-price="90000">Terminal Cipanas - Cianjur</option>
+                                <option value="Cirebon" data-price="100000">Terminal Plered - Cirebon</option>
+                                <option value="Garut" data-price="125000">Terminal Guntur - Garut</option>
+                                <option value="Tasik" data-price="115000">Terminal Indihiang - Tasik</option>
+                                <option value="Sukabumi" data-price="85000">Terminal Parung Kuda - Sukabumi</option>
+                                <option value="Kuningan" data-price="150000">Terminal Kuningan - Kuningan</option>
+                                <option value="Purwokerto" data-price="150000">Terminal Simpang - Purwokerta</option>
+                            </select>
+                            <small class="small-text" id="destinationPriceInfo"></small>
+
+                        </div>
+
+                        <!-- Hari dan Tanggal -->
+                        <div class="form-group">
+                            <label>Hari dan Tanggal</label>
+                            <input class="date" type="date" id="bookingDate" required>
+                        </div>
+
+                        <!-- Jam Keberangkatan -->
+                        <div class="form-group">
+                            <label>Jam Keberangkatan</label>
+                                <select id="departureTime" required>
+                                    <option selected value="">Pilih jam keberangkatan</option>
+                                    <option value="Pagi">Pagi (07:00)</option>
+                                    <option value="Siang">Siang (12:00)</option>
+                                    <option value="Sore">Sore (15:00)</option>
+                                    <option value="Malam">Malam (19:00)</option>
+                                </select>
+                        </div>
+                        <!-- Tipe Bus -->
+                        <div class="form-group">
+                            <label>Tipe Bus</label>
+                            <select id="busType" required>
+                                <option selected value="">Pilih Tipe Bus</option>
+                                <option value="regular" data-bus="0">Regular Bus</option>
+                                <option value="sleeper" data-bus="80000">Sleeper Bus (1x makan, 1x snack)</option>
+                                <option value="vip" data-bus="120000">VIP (2x makan, 2x snack)</option>
+                            </select>
+                                <small class="small-text" id="busPriceInfo"></small>
+                        </div>
+
+                        <!-- Empty space for grid alignment -->
+                        <div></div>
+
+                        <!-- Jumlah Ticket -->
+                        <div class="form-group">
+                            <label>Jumlah Ticket</label>
+                            <div class="quantity-control">
+                                <input class="number" type="number" value="0" id="ticketQty" min="1 readonly">
+                            </div>
+                        </div>
+                        <div class="form-group total-payment">
+                            <label>Total Pembayaran</label>
+                            <div class="total-amount" id="totalPrice">Rp0</div>
+                        </div>
+
+                        <!-- Nama Lengkap -->
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="username" name="username" placeholder="Masukan nama pemesan">
+                        </div>
+
+                        <!-- Tanggal Lahir -->
+                        <div class="form-group">
+                            <label>Tanggal Lahir</label>
+                            <input type="date" id="kelahiran" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" id="email" placeholder="tes@gmail.com">
+                        </div>
+
+                        <!-- Alamat -->
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <input type="text" id="alamat" placeholder="Masukkan Alamat">
+                        </div>
+
+                        <!-- Nomor Telepon -->
+                        <div class="form-group">
+                            <label>Nomor Telepon</label>
+                            <input inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" placeholder="08xxx"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step step-4">
+                <div class="form-section bayar">
+                    <div class="pembayaran">
+                        <div class="tata-cara">
+                            <h1 class="tata-cara-nomor">1</h1> 
+                            <div class="desc">
+                                    <h1>Melakukan Pembayaran</h1>
+
+                                    <h3 class="bca">Via Transfer (BCA)</h3>
+                                    <p class="norek">566 703 7072</p>
+                                    <p class="nama">a.n Alif Ramadhan Kusuma</p>
+
+                                    <h3 class="bca">Via Gopay</h3>
+                                    <p class="norek">+62 881 131 3737</p>
+                                    <p class="nama">a.n Alif Ramadhan Kusuma</p>
+                            </div>
+                        </div>
+                        <div class="tata-cara">
+                            <h1 class="tata-cara-nomor">2</h1> 
+                                <div class="desc">
+                                    <h1>Kirim Bukti Pembayaran</h1>
+                                    <a href="https://wa.me/628811313737" class="wa">wa.me/628811313737</a>
+                                    <p class="norek">*kami mengupdate status pembayaran 3 jam sekali</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step step-5">
+                <div class="form-section">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: #3c5070;">Booking Berhasil!</h2>
+                        <p style="color: #3c5070; margin-top: 10px;">Cek History untuk melihat status pembayaran!</p>
+                    </div>
+                    
+                    <div class="summary-list">
+                        <p><span>Pesanan dengan nomor</span> : <span id="step5BookingID">-</span></p>
+                        <p><span>Keberangkatan</span> : <span id="step5Departure">-</span></p>
+                        <p><span>Destinasi</span> : <span id="step5Destination">-</span></p>
+                        <p><span>Hari dan Tanggal</span> : <span id="step5Date">-</span></p>
+                        <p><span>Jam</span> : <span id="step5Time">-</span></p>
+                        <p><span>Jumlah Ticket</span> : <span id="step5Quantity">-</span></p>
+                        <p><span>Nama Lengkap</span> : <span id="step5Username">-</span></p>
+                        <p><span>Nomor Telepon</span> : <span id="step5Phone">-</span></p>
+                        <p><span>Total Pembayaran</span> : <span class="total-pembayaran" id="step5Total">-</span></p>
+                        <p class="status-pembayaran"><span>Status Pembayaran</span> : <span>BELUM LUNAS</span></p>
+                    </div>
+
+                    <!-- Custom buttons for Step 5 -->
+                    
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button type="button" class="nav-btn btn-back">Back</button>
+        <button type="button" class="nav-btn btn-next" id="nextBtn" >Next</button>
+    </div>
+
+    <script src="/static/js/booking.js"></script>
+</body>
+</html>

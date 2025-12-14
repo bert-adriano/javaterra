@@ -1,0 +1,321 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+  body {
+  font-family: "Product Sans", sans-serif;
+  background-color: #F5F0E9;
+  background-image: url('../images/background.png');
+  background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: #333;
+  font-weight: 400;
+}
+
+  /* Header */
+  header {
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+    background-color: #e0c58f;
+    padding: 10px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+  .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+  .logo-img {
+  width: 70px;
+  height: 50px;
+  top: 2%;
+  left: 5%;
+}
+
+  nav {
+  display: flex;
+  gap: 60px;
+}
+
+  nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  transition: opacity 0.3s;
+}
+
+  nav a:hover {
+  transform: translateY(-2px);
+}
+
+  .title {
+  text-align: center;
+  font-size: 25px;
+  color: #F5F2E9;
+  background-color: #3c5070;
+  padding: 50px 50px;
+}
+
+.search-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px;
+}
+
+.search-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px 20px;
+  border: 3px solid #3c5070;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: #F5F0E9;
+}
+
+.search-button {
+  padding: 15px 40px;
+  background: #3c5070;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.search-button:hover {
+  background: #2a3850;
+  transform: translateY(-2px);
+}
+
+#searchResults {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 18px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.no-results h3 {
+  color: #3c5070;
+  margin-bottom: 10px;
+}
+
+.results-header {
+  background: #3c5070;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  margin-bottom: 0;
+}
+
+.results-header h3 {
+  margin: 0;
+}
+
+.bookings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-card {
+  background: #f5f2e9;
+  border: 3px solid #3c5070;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #3c5070;
+}
+
+.booking-header h4 {
+  color: #3c5070;
+  font-size: 20px;
+  margin: 0;
+}
+
+.booking-id {
+  background: #3c5070;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.booking-details {
+  display: grid;
+  gap: 12px;
+}
+
+.value {
+  color: #3c5070;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.detail-row .label {
+  color: #666;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.detail-row .value {
+  color: #333;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.detail-row .price {
+  color: #4CAF50;
+  font-size: 18px;
+}
+
+.badge {
+  padding: 6px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-paid {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-not-paid {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-confirmed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.bayar {
+  background: #f5f2e9;
+  border: 3px solid #3c5070;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.pembayaran {
+  color: #3c5070;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.tata-cara {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding-bottom: 50px;
+}
+
+/* Nomor step */
+.tata-cara-nomor {
+  background: #3c5070;
+  color: #f5f0e9;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Bagian deskripsi */
+.desc {
+  font-size: 20px;
+}
+
+.desc h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.bca {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.norek,
+.nama {
+  margin: 0;
+  font-size: 18px;
+}
+
+.wa {
+  color: rgba(46, 59, 241, 0.862);
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+}

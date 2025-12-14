@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Javaterra</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Product Sans', sans-serif;
+            background-color: #f5f0e9;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: #3c5070;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+        }
+
+        .logout-btn {
+            background: #e0c58f;
+            color: #3c5070;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #d4b896;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .number {
+            color: #3c5070;
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            margin: 0 40px 20px 40px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .filter-group select {
+            padding: 10px 15px;
+            border: 2px solid #e0c58f;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Bookings Table */
+        .bookings-container {
+            margin: 0 40px 40px 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 20px;
+            background: #3c5070;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #f5f0e9;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            color: #3c5070;
+            font-weight: 600;
+            border-bottom: 2px solid #e0c58f;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .payment-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .payment-not-paid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm {
+            background: #6aad6d;
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #ffbc11;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #ff6055;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #3c5070;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-row strong {
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .stats-container, .filters, .bookings-container {
+                margin: 20px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>📊 Admin Dashboard - Javaterra</h1>
+        <a href="/admin/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <h3>Total Bookings</h3>
+            <div class="number" id="totalBookings">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Pending Bookings</h3>
+            <div class="number" id="pendingBookings">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Confirmed Bookings</h3>
+            <div class="number" id="confirmedBookings">0</div>
+        </div>
+        <div class="stat-card">
+            <h3>Paid Bookings</h3>
+            <div class="number" id="paidBookings">0</div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+        <div class="filter-group">
+            <label>Booking Status</label>
+            <select id="statusFilter" onchange="loadBookings()">
+                <option value="all">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Payment Status</label>
+            <select id="paymentFilter" onchange="loadBookings()">
+                <option value="all">All Payments</option>
+                <option value="paid">Paid</option>
+                <option value="not_paid">Not Paid</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-confirm" onclick="loadBookings()">🔄 Refresh</button>
+        </div>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="bookings-container">
+        <div class="table-header">
+            All Bookings (<span id="bookingCount">0</span>)
+        </div>
+        <div id="tableContent">
+            <div class="loading">Loading bookings...</div>
+        </div>
+    </div>
+
+    <!-- Modal for Booking Details -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Booking Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        let allBookings = [];
+
+        // Load bookings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookings();
+        });
+
+        // Load all bookings from API
+        async function loadBookings() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const paymentFilter = document.getElementById('paymentFilter').value;
+
+            try {
+                const response = await fetch(`/admin/api/bookings?status=${statusFilter}&payment=${paymentFilter}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    allBookings = data.bookings;
+                    displayBookings(data.bookings);
+                    updateStats(data.bookings);
+                } else {
+                    alert('Error loading bookings: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load bookings');
+            }
+        }
+
+        // Display bookings in table
+        function displayBookings(bookings) {
+            const tableContent = document.getElementById('tableContent');
+            const bookingCount = document.getElementById('bookingCount');
+
+            bookingCount.textContent = bookings.length;
+
+            if (bookings.length === 0) {
+                tableContent.innerHTML = '<div class="loading">No bookings found</div>';
+                return;
+            }
+
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Name</th>
+                            <th>Route</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            bookings.forEach(booking => {
+                const statusClass = `status-${booking.booking_status}`;
+                const paymentClass = booking.payment_status === 'paid' ? 'payment-paid' : 'payment-not-paid';
+
+                html += `
+                    <tr>
+                        <td><strong>${booking.booking_id}</strong></td>
+                        <td>${booking.username}</td>
+                        <td>${booking.departure} → ${booking.destination}</td>
+                        <td>${booking.date}</td>
+                        <td><span class="status-badge ${statusClass}">${booking.booking_status.toUpperCase()}</span></td>
+                        <td><span class="status-badge ${paymentClass}">${booking.payment_status === 'paid' ? 'PAID' : 'NOT PAID'}</span></td>
+                        <td>${booking.total_price}</td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn btn-confirm" onclick="viewDetails(${booking.id})" title="View Details">👁️</button>
+                                ${booking.payment_status === 'not_paid' ? 
+                                    `<button class="btn btn-confirm" onclick="markAsPaid(${booking.id})" title="Mark as Paid">💰</button>` : ''}
+                                ${booking.booking_status === 'pending' ? 
+                                    `<button class="btn btn-confirm" onclick="confirmBooking(${booking.id})" title="Confirm">✓</button>` : ''}
+                                <button class="btn btn-cancel" onclick="cancelBooking(${booking.id})" title="Cancel">✕</button>
+                                <button class="btn btn-delete" onclick="deleteBooking(${booking.id})" title="Delete">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            tableContent.innerHTML = html;
+        }
+
+        // Update statistics
+        function updateStats(bookings) {
+            const total = bookings.length;
+            const pending = bookings.filter(b => b.booking_status === 'pending').length;
+            const confirmed = bookings.filter(b => b.booking_status === 'confirmed').length;
+            const paid = bookings.filter(b => b.payment_status === 'paid').length;
+
+            document.getElementById('totalBookings').textContent = total;
+            document.getElementById('pendingBookings').textContent = pending;
+            document.getElementById('confirmedBookings').textContent = confirmed;
+            document.getElementById('paidBookings').textContent = paid;
+        }
+
+        // View booking details
+        function viewDetails(bookingId) {
+            const booking = allBookings.find(b => b.id === bookingId);
+            if (!booking) return;
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="detail-row">
+                    <strong>Booking ID:</strong>
+                    <span>${booking.booking_id}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Name:</strong>
+                    <span>${booking.username}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Birth Date:</strong>
+                    <span>${booking.birth_date}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Email:</strong>
+                    <span>${booking.email}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Phone:</strong>
+                    <span>${booking.phone}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Address:</strong>
+                    <span>${booking.address}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Departure:</strong>
+                    <span>${booking.departure}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Destination:</strong>
+                    <span>${booking.destination}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Date:</strong>
+                    <span>${booking.date}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Time:</strong>
+                    <span>${booking.time}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Bus Type:</strong>
+                    <span>${booking.bus_type}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Quantity:</strong>
+                    <span>${booking.quantity} tickets</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Total Price:</strong>
+                    <span style="color: #4CAF50; font-weight: bold; font-size: 18px;">${booking.total_price}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Booking Status:</strong>
+                    <span class="status-badge status-${booking.booking_status}">${booking.booking_status.toUpperCase()}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Payment Status:</strong>
+                    <span class="status-badge ${booking.payment_status === 'paid' ? 'payment-paid' : 'payment-not-paid'}">${booking.payment_status === 'paid' ? 'PAID' : 'NOT PAID'}</span>
+                </div>
+                <div class="detail-row">
+                    <strong>Created At:</strong>
+                    <span>${new Date(booking.created_at).toLocaleString()}</span>
+                </div>
+            `;
+
+            document.getElementById('detailModal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.remove('show');
+        }
+
+        // Mark as paid
+        async function markAsPaid(bookingId) {
+            if (!confirm('Mark this booking as PAID?')) return;
+
+            try {
+                const response = await fetch(`/admin/api/booking/${bookingId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        payment_status: 'paid'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Payment status updated!');
+                    loadBookings();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update payment status');
+            }
+        }
+
+        // Confirm booking
+        async function confirmBooking(bookingId) {
+            if (!confirm('Confirm this booking?')) return;
+
+            try {
+                const response = await fetch(`/admin/api/booking/${bookingId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        booking_status: 'confirmed'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Booking confirmed!');
+                    loadBookings();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to confirm booking');
+            }
+        }
+
+        // Cancel booking
+        async function cancelBooking(bookingId) {
+            if (!confirm('Cancel this booking?')) return;
+
+            try {
+                const response = await fetch(`/admin/api/booking/${bookingId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        booking_status: 'cancelled'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Booking cancelled!');
+                    loadBookings();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to cancel booking');
+            }
+        }
+
+        // Delete booking
+        async function deleteBooking(bookingId) {
+            if (!confirm('⚠️ DELETE this booking permanently? This cannot be undone!')) return;
+
+            try {
+                const response = await fetch(`/admin/api/booking/${bookingId}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Booking deleted!');
+                    loadBookings();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to delete booking');
+            }
+        }
+    </script>
+</body>
+</html>

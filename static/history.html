@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History - Javaterra</title>
+    <link rel="stylesheet" href="/static/css/history.css">
+</head>
+<body>
+    <!-- Your existing header here -->
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.png" alt="logo" class="logo-img">
+            <span>Javaterra</span>
+        </div>
+        <nav>
+            <a href="/static/index.html">home</a>
+            <a href="/static/booking.html">booking</a>
+            <a href="/static/history.html">history</a>
+        </nav>
+    </header>
+
+    <div class="search-container">
+        <h1 style="text-align: center; color: #3c5070; margin-bottom: 30px;">
+            🔍 Cari Booking Anda
+        </h1>
+        
+        <form id="searchForm" class="search-form">
+            <input 
+                type="text" 
+                id="searchName" 
+                class="search-input" 
+                placeholder="Masukkan nama pemesan..."
+                required
+            >
+            <button type="submit" id="searchButton" class="search-button">
+                Cari Booking
+            </button>
+        </form>
+
+        <div id="searchResults">
+            <!-- Results will appear here -->
+        </div>
+
+        <div class="form-section bayar">
+            <div class="pembayaran">
+                <div class="tata-cara">
+                    <h1 class="tata-cara-nomor">1</h1> 
+                    <div class="desc">
+                        <h1>Melakukan Pembayaran</h1>
+
+                        <h3 class="bca">Via Transfer (BCA)</h3>
+                        <p class="norek">566 703 7072</p>
+                        <p class="nama">a.n Alif Ramadhan Kusuma</p>
+
+                        <h3 class="bca">Via Gopay</h3>
+                        <p class="norek">+62 881 131 3737</p>
+                        <p class="nama">a.n Alif Ramadhan Kusuma</p>
+                    </div>
+                </div>
+                <div class="tata-cara">
+                    <h1 class="tata-cara-nomor">2</h1> 
+                        <div class="desc">
+                            <h1>Kirim Bukti Pembayaran</h1>
+                            <a href="https://wa.me/628811313737" class="wa">wa.me/628811313737</a>
+                            <p class="norek">*kami mengupdate status pembayaran 3 jam sekali</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/history.js"></script>
+</body>
+</html>

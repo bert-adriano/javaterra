@@ -1,0 +1,427 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Product Sans", sans-serif;
+  background-color: #f5f0e9;
+  background-image: url("../images/background.png");
+  background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
+  color: #333;
+  font-weight: 700;
+}
+
+/* Header */
+header {
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+  background-color: #e0c58f;
+  padding: 10px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+}
+
+.logo-img {
+  width: 70px;
+  height: 50px;
+  top: 2%;
+  left: 5%;
+}
+
+nav {
+  display: flex;
+  gap: 60px;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  transition: opacity 0.3s;
+}
+
+nav a:hover {
+  transform: translateY(-2px);
+}
+/* e0c58f 3c5070 F5F2E9 */
+.title {
+  text-align: center;
+  font-size: 25px;
+  color: #f5f2e9;
+  background-color: #3c5070;
+  padding: 50px 50px;
+}
+.booking-container {
+  display: flex;
+  gap: 40px;
+  padding: 0 60px 60px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.sidebar-item.active {
+    background-color: #3c5070;
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  padding-top: 70px;
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar-item {
+  border: 3px solid #3c5070;
+  border-radius: 15px;
+  padding: 25px 30px;
+  font-weight: 900;
+  color: #4a6489;
+  font-size: 22px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+
+.sidebar-item:hover {
+  transform: translatex(-5px);
+  padding: 25px 35px;
+  box-shadow: 0 0px 30px rgba(60, 80, 112, 0.521);
+}
+
+/* Form Section */
+.form-section {
+  flex: 1;
+  border-radius: 20px;
+  padding: 68px;
+  position: relative;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group label {
+  font-size: 24px;
+  font-weight: 700;
+  color: #3c5070;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 15px 25px;
+  border: 3px solid #3c5070;
+  border-radius: 30px;
+  font-size: 16px;
+  background: #f5f2e9;
+  color: #000000;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3c5070;
+}
+
+input.empty,
+select.empty {
+  color: #999;
+}
+
+input.filled,
+select.filled {
+  color: black; 
+}
+
+select {
+  color: #999 !important; /* force placeholder color */
+}
+
+select:valid {
+  color: #000 !important; /* force selected text color */
+}
+
+select {
+  appearance: none;
+}
+
+/* For WebKit browsers (Chrome, Safari, Edge) */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* For Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="date"],
+input[type="number"] {
+  color: rgb(110, 110, 110) !important; /* default */
+}
+
+input[type="date"]:valid {
+  color: black !important; /* after user picks date */
+}
+
+
+/* Quantity Control */
+.quantity-control {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quantity-control input {
+  flex: 0 0 150px;
+  text-align: center;
+  padding: 15px;
+}
+
+.quantity-btn {
+  width: 50px;
+  height: 50px;
+  border: 3px solid #4a6489;
+  border-radius: 50%;
+  background: #f5f2e9;
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a6489;
+  cursor: pointer;
+  display: absolute;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.quantity-btn:hover {
+  background: #4a6489;
+  color: white;
+}
+
+.small-text {
+  color: #4CAF50;
+  margin-top: 1px; 
+  font-weight: 400;
+}
+
+.bayar {
+  padding-top: 75px;
+  padding-left: 40px;
+}
+
+.pembayaran {
+  color: #3c5070;
+  font-weight: 400;
+  font-size: 18px;
+  padding-bottom: 50px;
+
+}
+
+.tata-cara {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  padding-bottom: 50px;
+}
+
+/* Nomor step */
+.tata-cara-nomor {
+  background: #3c5070;
+  color: #f5f0e9;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Bagian deskripsi */
+.desc {
+  font-size: 20px;
+}
+
+.desc h1 {
+  font-size: 26px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.bca {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.norek,
+.nama {
+  margin: 0;
+  font-size: 18px;
+}
+
+.wa {
+  color: rgba(46, 59, 241, 0.862);
+  font-size: 22px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.summary-list {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 25px 60px;
+}
+
+.summary-list p {
+  font-size: 22px;
+  font-weight: 900;
+  color: #999;
+  display: contents;
+  margin: 0;
+}
+
+.total-pembayaran {
+  color: red !important; 
+}
+.status-pembayaran {
+  color: #3c5070 !important; 
+}
+
+/* Total Payment */
+.total-payment {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.total-amount {
+  padding: 15px 25px;
+  border: 3px solid #3c5070;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #e63946;
+  background: #f5f2e9;
+  text-align: left;
+}
+
+/* Navigation Buttons - bottom of form */
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding-bottom: 30px; /* biar ga terlalu nempel */
+  padding-right: 30px;
+}
+
+.nav-btn {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-back {
+  background: #3c5070;
+  color: white;
+}
+
+.btn-next {
+  background: #3c5070;
+  color: white;
+}
+
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .booking-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex-direction: row;
+    flex: none;
+    overflow-x: auto;
+  }
+
+  .sidebar-item {
+    flex: 0 0 250px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  header,
+  .hero-banner,
+  .booking-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-banner h1 {
+    font-size: 40px;
+  }
+
+  .form-section {
+    padding: 30px 20px;
+  }
+
+  .nav-buttons {
+    position: static;
+    margin-top: 30px;
+    justify-content: center;
+  }
+}
